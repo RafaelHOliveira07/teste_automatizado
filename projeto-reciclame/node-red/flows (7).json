@@ -1,0 +1,968 @@
+[
+    {
+        "id": "c123d2b81ccf83fa",
+        "type": "tab",
+        "label": "SIMULAR LIXEIRA",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "386112b1599f5218",
+        "type": "tab",
+        "label": "TOTAL BANCO",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "02e840f6c4747e41",
+        "type": "tab",
+        "label": "Style",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d3b3593c1290f405",
+        "type": "websocket-listener",
+        "path": "/reciclame.com/ws",
+        "wholemsg": "false"
+    },
+    {
+        "id": "858e702760f399af",
+        "type": "mongodb3",
+        "uri": "mongodb+srv://rafaelh:mongo123@cluster0.pkftyqr.mongodb.net/?retryWrites=true&w=majority",
+        "name": "reciclame",
+        "options": "",
+        "parallelism": "-1"
+    },
+    {
+        "id": "26506cc6774eb270",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-custom",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#287e10",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#107709",
+                "baseFont": "Impact,Impact,Charcoal,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme red",
+                "default": "#4B7930",
+                "baseColor": "#236407",
+                "baseFont": "Tahoma,Geneva,sans-serif",
+                "reset": false
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#49981b",
+                    "value": "#236407",
+                    "edited": true
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#236407",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": true
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#111111",
+                    "edited": true
+                },
+                "group-textColor": {
+                    "value": "#ffffff",
+                    "edited": true
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": true
+                },
+                "widget-textColor": {
+                    "value": "#ffffff",
+                    "edited": true
+                },
+                "widget-backgroundColor": {
+                    "value": "#00b825",
+                    "edited": true
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": true
+                },
+                "base-font": {
+                    "value": "Tahoma,Geneva,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Reciclame-dash",
+            "hideToolbar": "true",
+            "allowSwipe": "false",
+            "lockMenu": "true",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 70,
+                "sy": 70,
+                "gx": 1,
+                "gy": 0,
+                "cx": 55,
+                "cy": 10,
+                "px": 10,
+                "py": 10
+            }
+        }
+    },
+    {
+        "id": "eae67d49b56fcbd9",
+        "type": "ui_tab",
+        "name": "Tab 1",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "0cdd21f463cf34e7",
+        "type": "ui_group",
+        "name": "Ponto de Coleta - 39",
+        "tab": "eae67d49b56fcbd9",
+        "order": 1,
+        "disp": true,
+        "width": "10",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f78cf822227d2486",
+        "type": "ui_group",
+        "name": "Ponto de Coleta - 47",
+        "tab": "eae67d49b56fcbd9",
+        "order": 2,
+        "disp": true,
+        "width": "10",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "2f2752926d5d2316",
+        "type": "function",
+        "z": "c123d2b81ccf83fa",
+        "name": "lixeira1",
+        "func": "if (msg.topic === \"inject\") {\n    // Chama a função de consulta\n    gerarDadosSimulados();\n}\n\nvar idLixeira = \"39\";\n\nvar tipo = \"papel\";\nvar intervaloDeTempo = 5000; // Tempo em milissegundos (por exemplo, a cada 5 segundos)\nvar limiteMaximoVolume = 80; // Substitua com o seu limite máximo de volume\nvar limiteMaximoPeso = 20;\nvar volumeTotal = 0;\nvar pesoTotal = 0;\n\n\nfunction gerarDadosSimulados() {\n    var volume = Math.round(Math.random() * 10) + 1;\n    var peso = Math.round(Math.random() * 2) + 1;\n    var timestamp = new Date();\n\n    if ((pesoTotal + peso <= limiteMaximoPeso) && (volumeTotal + volume <= limiteMaximoVolume)) {\n        volumeTotal += volume;\n        pesoTotal += peso;\n    \n\n\n        var dados = {\n            idLixeira: idLixeira,\n            volumeTotal: volumeTotal,\n            pesoTotal: pesoTotal,\n            timestamp: timestamp,\n            isFinal: false\n        };\n\n        if ((volumeTotal >= limiteMaximoVolume - 10) || (pesoTotal >= limiteMaximoPeso - 5)) {\n            dados.isFinal = true;\n            console.log(\"Volume máximo atingido. Marcar como final.\");\n\n            // Se isFinal for verdadeiro, envie o sinal para o nó Trigger\n            if (dados.isFinal) {\n                node.send({ payload:dados });\n            }\n        }\n\n        node.send({ payload: dados, topic: \"lixeira\" });\n        console.log(dados);\n\n        if (!dados.isFinal) {\n            setTimeout(gerarDadosSimulados, intervaloDeTempo);\n        }\n    } else {\n        console.log(\"Dados excedem os limites máximos. Não enviando para o MQTT.\");\n    }\n}\n\n// Inicie o processo de geração de dados\ngerarDadosSimulados();\n\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 360,
+        "wires": [
+            [
+                "5937ea6e2ef4f514",
+                "d8a771725644c4e7"
+            ]
+        ]
+    },
+    {
+        "id": "5937ea6e2ef4f514",
+        "type": "mongodb3 in",
+        "z": "c123d2b81ccf83fa",
+        "service": "_ext_",
+        "configNode": "858e702760f399af",
+        "name": "MongoDb",
+        "collection": "lixeiras",
+        "operation": "insert",
+        "x": 500,
+        "y": 360,
+        "wires": [
+            [
+                "0ed6089b280276a6",
+                "652363d010d27398"
+            ]
+        ]
+    },
+    {
+        "id": "0ed6089b280276a6",
+        "type": "function",
+        "z": "c123d2b81ccf83fa",
+        "name": "function 1",
+        "func": "// Supondo que você tenha os dados do MongoDB em msg.payload\nvar mongodbData = msg.payload.ops && msg.payload.ops[0];\n\n// Extrair os valores específicos que você deseja para o gráfico de barras\nvar volumeTotal = mongodbData && mongodbData.volumeTotal || 0;\nvar pesoTotal = mongodbData && mongodbData.pesoTotal || 0;\n\n// Criar um objeto para o gráfico de barras\nvar barChartData = {\n    labels: [\"Volume Atual(%)\"],\n    series: ['Volume  tempo real'],\n    data: [\n        [volumeTotal]\n    ]\n};\n\n\n// Enviar os dados para o gráfico de barras\nmsg.payload = [barChartData];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 260,
+        "wires": [
+            [
+                "e1e0a74afba5d10a"
+            ]
+        ]
+    },
+    {
+        "id": "64f0a08a3309d90e",
+        "type": "inject",
+        "z": "c123d2b81ccf83fa",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "v": "inject",
+                "vt": "msg"
+            }
+        ],
+        "repeat": "66",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 140,
+        "y": 360,
+        "wires": [
+            [
+                "2f2752926d5d2316"
+            ]
+        ]
+    },
+    {
+        "id": "57df064c1b7e19c9",
+        "type": "function",
+        "z": "c123d2b81ccf83fa",
+        "name": "lixeira2",
+        "func": "if (msg.topic === \"inject\") {\n    // Chama a função de consulta\n    gerarDadosSimulados();\n}\n\nvar idLixeira = \"47\";\n\nvar tipo = \"plastico\";\nvar intervaloDeTempo = 3000; // Tempo em milissegundos (por exemplo, a cada 5 segundos)\nvar limiteMaximoVolume = 80; // Substitua com o seu limite máximo de volume\nvar limiteMaximoPeso = 20;\nvar volumeTotal = 0;\nvar pesoTotal = 0;\n\n\nfunction gerarDadosSimulados() {\n    var volume = Math.round(Math.random() * 10) + 1;\n    var peso = Math.round(Math.random() * 2) + 1;\n    var timestamp = new Date();\n\n    if ((volumeTotal + volume) <= limiteMaximoVolume) {\n        volumeTotal += volume;\n        pesoTotal += peso;\n\n        var dados = {\n            idLixeira: idLixeira,\n         \n            volumeTotal: volumeTotal,\n            pesoTotal: pesoTotal,\n            timestamp: timestamp,\n            isFinal2: false\n        };\n\n        if ((volumeTotal >= limiteMaximoVolume - 10) || (pesoTotal >= limiteMaximoPeso - 5)){\n            dados.isFinal2 = true;\n            console.log(\"Volume máximo atingido. Marcar como final.\");\n\n            // Se isFinal for verdadeiro, envie o sinal para o nó Trigger\n            if (dados.isFinal2) {\n                node.send({ payload:dados });\n            }\n        }\n\n        node.send({ payload: dados, topic: \"lixeira\" });\n        console.log(dados);\n\n        if (!dados.isFinal2) {\n            setTimeout(gerarDadosSimulados, intervaloDeTempo);\n        }\n    } else {\n        console.log(\"Dados excedem os limites máximos. Não enviando para o MQTT.\");\n    }\n}\n\n// Inicie o processo de geração de dados\ngerarDadosSimulados();\n\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 720,
+        "wires": [
+            [
+                "fd82343ca4510a19",
+                "3f815b0e77dd0b8d"
+            ]
+        ]
+    },
+    {
+        "id": "fd82343ca4510a19",
+        "type": "mongodb3 in",
+        "z": "c123d2b81ccf83fa",
+        "service": "_ext_",
+        "configNode": "858e702760f399af",
+        "name": "MongoDb",
+        "collection": "lixeiras",
+        "operation": "insert",
+        "x": 520,
+        "y": 720,
+        "wires": [
+            [
+                "d736c456baa39016",
+                "2710e09d1084a844"
+            ]
+        ]
+    },
+    {
+        "id": "c00a5c3eaa0f3552",
+        "type": "inject",
+        "z": "c123d2b81ccf83fa",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "v": "inject",
+                "vt": "msg"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 160,
+        "y": 720,
+        "wires": [
+            [
+                "57df064c1b7e19c9"
+            ]
+        ]
+    },
+    {
+        "id": "2274e0a9f483e366",
+        "type": "websocket out",
+        "z": "c123d2b81ccf83fa",
+        "name": "",
+        "server": "d3b3593c1290f405",
+        "client": "",
+        "x": 990,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "8abc5dc3853dc232",
+        "type": "websocket out",
+        "z": "c123d2b81ccf83fa",
+        "name": "",
+        "server": "d3b3593c1290f405",
+        "client": "",
+        "x": 930,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "3f815b0e77dd0b8d",
+        "type": "function",
+        "z": "c123d2b81ccf83fa",
+        "name": "function 4",
+        "func": "// Verifica se o payload é um objeto e contém a propriedade 'isFinal2'\nif (msg.payload.isFinal2 === true) {\n    // Cria um novo objeto apenas com o 'idLixeira'\n    var idLixeira = { idLixeira: msg.payload.idLixeira };\n\n    // Chama o nó Trigger\n    node.send({ payload: idLixeira});\n} else {\n    // Se o payload não contiver 'isFinal2', retorna nulo\n    return null;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 840,
+        "wires": [
+            [
+                "89aaf95f4594ef69"
+            ]
+        ]
+    },
+    {
+        "id": "d8a771725644c4e7",
+        "type": "function",
+        "z": "c123d2b81ccf83fa",
+        "name": "function 5",
+        "func": "// Verifica se o payload é um objeto e contém a propriedade 'isFinal2'\nif (msg.payload && msg.payload.isFinal === true) {\n    // Cria um novo objeto apenas com o 'idLixeira'\n    var idLixeira = { idLixeira: msg.payload.idLixeira };\n\n    // Chama o nó Trigger\n    node.send({ payload: idLixeira, topic: \"trigger\" });\n} else {\n    // Se o payload não contiver 'isFinal2', retorna nulo\n    return null;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 480,
+        "wires": [
+            [
+                "a53847e946077080"
+            ]
+        ]
+    },
+    {
+        "id": "89aaf95f4594ef69",
+        "type": "delay",
+        "z": "c123d2b81ccf83fa",
+        "name": "",
+        "pauseType": "queue",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": true,
+        "outputs": 1,
+        "x": 610,
+        "y": 840,
+        "wires": [
+            [
+                "f8aebde31deedfea"
+            ]
+        ]
+    },
+    {
+        "id": "a53847e946077080",
+        "type": "delay",
+        "z": "c123d2b81ccf83fa",
+        "name": "",
+        "pauseType": "queue",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": true,
+        "outputs": 1,
+        "x": 490,
+        "y": 480,
+        "wires": [
+            [
+                "bfcfdbdfbb5d642e"
+            ]
+        ]
+    },
+    {
+        "id": "bfcfdbdfbb5d642e",
+        "type": "delay",
+        "z": "c123d2b81ccf83fa",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "3",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 720,
+        "y": 480,
+        "wires": [
+            [
+                "8abc5dc3853dc232"
+            ]
+        ]
+    },
+    {
+        "id": "f8aebde31deedfea",
+        "type": "delay",
+        "z": "c123d2b81ccf83fa",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "3",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 800,
+        "y": 840,
+        "wires": [
+            [
+                "2274e0a9f483e366"
+            ]
+        ]
+    },
+    {
+        "id": "0516703440758d68",
+        "type": "ui_chart",
+        "z": "c123d2b81ccf83fa",
+        "name": "Lixeira(02) - plastico",
+        "group": "f78cf822227d2486",
+        "order": 1,
+        "width": "3",
+        "height": "5",
+        "label": "",
+        "chartType": "bar",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#f00a0a",
+            "#ffffff",
+            "#ff7f0e",
+            "#11ee11",
+            "#98df8a",
+            "#e81111",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 960,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e1e0a74afba5d10a",
+        "type": "ui_chart",
+        "z": "c123d2b81ccf83fa",
+        "name": "Lixeira(01)",
+        "group": "0cdd21f463cf34e7",
+        "order": 1,
+        "width": "3",
+        "height": "5",
+        "label": "",
+        "chartType": "bar",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#11ee11",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 970,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "652363d010d27398",
+        "type": "function",
+        "z": "c123d2b81ccf83fa",
+        "name": "function 6",
+        "func": "// Supondo que você tenha os dados do MongoDB em msg.payload\nvar mongodbData = msg.payload.ops && msg.payload.ops[0];\n\n// Extrair os valores específicos que você deseja para o gráfico de barras\nvar volumeTotal = mongodbData && mongodbData.volumeTotal || 0;\nvar pesoTotal = mongodbData && mongodbData.pesoTotal || 0;\n\n// Criar um objeto para o gráfico de barras\nvar barChartData = {\n    labels: [ \"Peso Atual(Kgs)\"],\n    series: ['peso em tempo real'],\n    data: [\n        [ pesoTotal]\n    ]\n};\n\n// Enviar os dados para o gráfico de barras\nmsg.payload = [barChartData];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 380,
+        "wires": [
+            [
+                "70d59581775169fa"
+            ]
+        ]
+    },
+    {
+        "id": "70d59581775169fa",
+        "type": "ui_chart",
+        "z": "c123d2b81ccf83fa",
+        "name": "Lixeira(01)",
+        "group": "0cdd21f463cf34e7",
+        "order": 1,
+        "width": "3",
+        "height": "5",
+        "label": "",
+        "chartType": "bar",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0kg",
+        "ymax": "20kg",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#11ee11",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 950,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d736c456baa39016",
+        "type": "function",
+        "z": "c123d2b81ccf83fa",
+        "name": "function 7",
+        "func": "// Supondo que você tenha os dados do MongoDB em msg.payload\nvar mongodbData = msg.payload.ops && msg.payload.ops[0];\n\n// Extrair os valores específicos que você deseja para o gráfico de barras\nvar volumeTotal = mongodbData && mongodbData.volumeTotal || 0;\nvar pesoTotal = mongodbData && mongodbData.pesoTotal || 0;\n\n// Criar um objeto para o gráfico de barras\nvar barChartData = {\n    labels: [\"Volume Atual(%)\"],\n    series: ['Volume  tempo real'],\n    data: [\n        [volumeTotal]\n    ]\n};\n\n\n// Enviar os dados para o gráfico de barras\nmsg.payload = [barChartData];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 660,
+        "wires": [
+            [
+                "0516703440758d68"
+            ]
+        ]
+    },
+    {
+        "id": "2710e09d1084a844",
+        "type": "function",
+        "z": "c123d2b81ccf83fa",
+        "name": "function 8",
+        "func": "// Supondo que você tenha os dados do MongoDB em msg.payload\nvar mongodbData = msg.payload.ops && msg.payload.ops[0];\n\n// Extrair os valores específicos que você deseja para o gráfico de barras\nvar volumeTotal = mongodbData && mongodbData.volumeTotal || 0;\nvar pesoTotal = mongodbData && mongodbData.pesoTotal || 0;\n\n// Criar um objeto para o gráfico de barras\nvar barChartData = {\n    labels: [ \"Peso Atual(Kgs)\"],\n    series: ['peso em tempo real'],\n    data: [\n        [ pesoTotal]\n    ]\n};\n\n// Enviar os dados para o gráfico de barras\nmsg.payload = [barChartData];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 780,
+        "wires": [
+            [
+                "5396e1eda96dc8a1"
+            ]
+        ]
+    },
+    {
+        "id": "5396e1eda96dc8a1",
+        "type": "ui_chart",
+        "z": "c123d2b81ccf83fa",
+        "name": "Lixeira(02) - plastico",
+        "group": "f78cf822227d2486",
+        "order": 1,
+        "width": "3",
+        "height": "5",
+        "label": "",
+        "chartType": "bar",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "20",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#f00a0a",
+            "#ffffff",
+            "#ff7f0e",
+            "#11ee11",
+            "#98df8a",
+            "#e81111",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 940,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fe2d7799763ecd84",
+        "type": "function",
+        "z": "386112b1599f5218",
+        "name": " PESO FINAL",
+        "func": "// Verifique se há resultados\nif (msg.payload) {\n    // Inicialize o peso total\n    var pesoTotalFinal = 0;\n\n    // Itere sobre os documentos\n    for (var key in msg.payload) {\n        var doc = msg.payload[key];\n\n        // Verifique se o documento tem a propriedade isFinal e seu valor é true\n        if (doc.isFinal === true) {\n            // Adicione o peso total do documento ao peso total acumulado\n            pesoTotalFinal += doc.pesoTotal || 0;\n        }\n    }\n\n    // Envie o peso total final diretamente como payload\n    msg.payload = pesoTotalFinal;\n\n    // Defina o tipo de gráfico no msg.ui_control para 'donut'\n    msg.ui_control = {\n        options: {\n            chart: {\n                type: 'donut'\n            }\n        }\n    };\n\n    return msg;\n} else {\n    // Não há resultados, você pode querer lidar com isso de alguma forma\n    return null;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 380,
+        "wires": [
+            [
+                "a035aa9b06987d13"
+            ]
+        ]
+    },
+    {
+        "id": "30c92c28472a4277",
+        "type": "mongodb3 in",
+        "z": "386112b1599f5218",
+        "service": "_ext_",
+        "configNode": "858e702760f399af",
+        "name": "for each",
+        "collection": "lixeiras",
+        "operation": "find.toArray",
+        "x": 540,
+        "y": 380,
+        "wires": [
+            [
+                "fe2d7799763ecd84"
+            ]
+        ]
+    },
+    {
+        "id": "e82e9f323b74ff37",
+        "type": "function",
+        "z": "386112b1599f5218",
+        "name": "CONSULTA BANCO",
+        "func": "// Verifica se a mensagem é originária do nó \"inject\"\nif (msg.topic === \"inject\") {\n    // Chama a função de consulta\n    documentos();\n}\n\n// Retorna a mensagem para passar para o próximo nó\nreturn msg;\n\n\nvar processedDocs = [];\n\n// Verifique se a resposta do banco de dados contém a propriedade \"ops\"\nif (msg.payload && msg.payload.ops) {\n    // Extraia os documentos da propriedade \"ops\"\n    var documentos = msg.payload.ops;\n\n    // Itera sobre cada documento\n    documentos.forEach(function(doc) {\n        // Faça qualquer processamento adicional aqui, se necessário\n        // ...\n\n        // Adiciona o documento ao array\n        processedDocs.push(doc);\n    });\n\n    // Imprima os documentos para verificar\n    console.log(processedDocs);\n\n    // Agora, você pode usar o array de documentos como desejar\n    // Por exemplo, atribuir a uma variável global ou enviar para outro nó\n\n    return { payload: processedDocs };\n} else {\n    // Caso não encontre a propriedade \"ops\", algo pode ter dado errado\n    console.error(\"A propriedade 'ops' não encontrada na resposta do banco de dados.\");\n    return msg; // Ou retorne algo apropriado para o seu caso\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 380,
+        "wires": [
+            [
+                "30c92c28472a4277"
+            ]
+        ]
+    },
+    {
+        "id": "7abcac38055db236",
+        "type": "inject",
+        "z": "386112b1599f5218",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "v": "inject",
+                "vt": "msg"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 160,
+        "y": 380,
+        "wires": [
+            [
+                "e82e9f323b74ff37"
+            ]
+        ]
+    },
+    {
+        "id": "11d7892dfc0d159d",
+        "type": "function",
+        "z": "386112b1599f5218",
+        "name": " PESO FINAL",
+        "func": "// Verifique se há resultados\nif (msg.payload) {\n    // Inicialize o peso total\n    var pesoTotalFinal = 0;\n\n    // Itere sobre os documentos\n    for (var key in msg.payload) {\n        var doc = msg.payload[key];\n\n        // Verifique se o documento tem a propriedade isFinal e seu valor é true\n        if (doc.isFinal2 === true) {\n            // Adicione o peso total do documento ao peso total acumulado\n            pesoTotalFinal += doc.pesoTotal || 0;\n        }\n    }\n\n    // Envie o peso total final diretamente como payload\n    msg.payload = pesoTotalFinal;\n\n    // Defina o tipo de gráfico no msg.ui_control para 'donut'\n    msg.ui_control = {\n        options: {\n            chart: {\n                type: 'donut'\n            }\n        }\n    };\n\n    return msg;\n} else {\n    // Não há resultados, você pode querer lidar com isso de alguma forma\n    return null;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 820,
+        "wires": [
+            [
+                "c75b2329cc790999"
+            ]
+        ]
+    },
+    {
+        "id": "dce30d7312184d12",
+        "type": "mongodb3 in",
+        "z": "386112b1599f5218",
+        "service": "_ext_",
+        "configNode": "858e702760f399af",
+        "name": "for each",
+        "collection": "lixeiras",
+        "operation": "find.toArray",
+        "x": 620,
+        "y": 820,
+        "wires": [
+            [
+                "11d7892dfc0d159d"
+            ]
+        ]
+    },
+    {
+        "id": "6d338e733beccf5c",
+        "type": "function",
+        "z": "386112b1599f5218",
+        "name": "CONSULTA BANCO",
+        "func": "// Verifica se a mensagem é originária do nó \"inject\"\nif (msg.topic === \"inject\") {\n    // Chama a função de consulta\n    documentos();\n}\n\n// Retorna a mensagem para passar para o próximo nó\nreturn msg;\n\n\n// Variável para armazenar o último documento com isFinal2 true\nvar ultimoDocumento = null;\nvar ultimoTimestamp = 0;\n\n// Verifique se a resposta do banco de dados contém a propriedade \"ops\"\nif (msg.payload && msg.payload.ops) {\n    // Extraia os documentos da propriedade \"ops\"\n    var documentos = msg.payload.ops;\n\n    // Itera sobre cada documento\n    documentos.forEach(function (doc) {\n        // Verifique se o documento é definido e se tem a propriedade isFinal2 com valor true\n        if (doc && doc.isFinal2 === true) {\n            // Verifique se o timestamp é mais recente\n            if (doc.timestamp > ultimoTimestamp) {\n                // Atualize o último documento e timestamp\n                ultimoDocumento = doc;\n                ultimoTimestamp = doc.timestamp;\n            }\n        }\n    });\n\n    // Imprima o último documento para verificar\n    console.log(ultimoDocumento);\n\n    // Agora, você pode usar o último documento como desejar\n    // Por exemplo, atribuir a uma variável global ou enviar para outro nó\n\n    return { payload: ultimoDocumento };\n} else {\n    // Caso não encontre a propriedade \"ops\", algo pode ter dado errado\n    console.error(\"A propriedade 'ops' não encontrada na resposta do banco de dados.\");\n    return msg; // Ou retorne algo apropriado para o seu caso\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 820,
+        "wires": [
+            [
+                "dce30d7312184d12"
+            ]
+        ]
+    },
+    {
+        "id": "9f05106ab1173c7d",
+        "type": "inject",
+        "z": "386112b1599f5218",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "v": "inject",
+                "vt": "msg"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 240,
+        "y": 820,
+        "wires": [
+            [
+                "6d338e733beccf5c"
+            ]
+        ]
+    },
+    {
+        "id": "dd5386e86fc8d674",
+        "type": "websocket out",
+        "z": "386112b1599f5218",
+        "name": "",
+        "server": "d3b3593c1290f405",
+        "client": "",
+        "x": 1040,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "a035aa9b06987d13",
+        "type": "ui_gauge",
+        "z": "386112b1599f5218",
+        "name": "Peso total - lixeira 1",
+        "group": "0cdd21f463cf34e7",
+        "order": 2,
+        "width": 4,
+        "height": 5,
+        "gtype": "donut",
+        "title": "Peso total",
+        "label": "KG",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "10000",
+        "colors": [
+            "#05b4ff",
+            "#05b4ff",
+            "#05b4ff"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "gaugue1.1",
+        "x": 960,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "c75b2329cc790999",
+        "type": "ui_gauge",
+        "z": "386112b1599f5218",
+        "name": "Peso total - lixeira 2",
+        "group": "f78cf822227d2486",
+        "order": 3,
+        "width": 4,
+        "height": "5",
+        "gtype": "donut",
+        "title": "Peso total",
+        "label": "KG",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "10000",
+        "colors": [
+            "#ff0000",
+            "#ff0000",
+            "#ff0000"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "gaugue2.1",
+        "x": 1090,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "c5daf5d5d1321089",
+        "type": "ui_template",
+        "z": "02e840f6c4747e41",
+        "group": "0cdd21f463cf34e7",
+        "name": "CSS-Basics",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "format": "<style>\n\n* {\n    background: none !important;\n}\n\n    root, a, button, p, div {\n        -webkit-user-select: none !important;\n    }\n\n    body {\n        \n\n        background-size: cover !important;*/\n        background: transparent !important;\n\n        -webkit-touch-callout: none !important;\n        color: #ffffff !important;\n        padding-top:5px !important;\n    }\n    \n    body.nr-dashboard-theme md-toolbar,\n    body.nr-dashboard-theme md-content md-card {\n\n    }\n\n    \n    ui-card-panel {\n        back-drop:filter(10px)!important;\n\n        border:none !important;\n        border-radius: 10px !important;\n/*        box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2), 0 4px 8px 0 rgba(0, 0, 0, 0.19) !important;\n*/    }\n\n    ui-card-panel>div.nr-dashboard-cardpanel>div>md-card {\n        background: none !important;\n    }\n    ui-card-panel>div.nr-dashboard-cardpanel button {\n        background: none !important;\n    } \n    md-toolbar {\n        background: none !important;\n        color:#fff; !important;\n    }\n    md-sidenav {\n        background:none !important;\n    }\n    md-card.nr-dashboard-button * {\n        box-shadow: none !important;\n    }\n    md-card.nr-dashboard-template * {\n        background: none !important;\n    }\n.masonry-container{\nposition: absolute !important;\npadding: 0rem !important;\n}\n\nbody.nr-dashboard-theme{\n    margin-top: 5rem !important;\n    width: 80% !important;\n    padding: 0rem !important;\n    margin-left:30rem;\n}\n.md-content{\n    overflow: hidden !important;\n}\n</style>\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "global",
+        "className": "",
+        "x": 670,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    }
+]

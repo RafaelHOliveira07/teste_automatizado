@@ -1,0 +1,53 @@
+body{
+    background-color: white;
+}
+
+.cadas-cont{
+
+
+
+  color: hsl(0, 0%, 0%);
+ display: flex;
+  align-items: center;
+ 
+}
+
+.info-cadas{
+    margin-top: 5rem;
+    width: 800px;
+    padding: 3rem;
+    background-color: rgb(255, 255, 255);
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: column;
+    
+    font-weight: bolder;
+
+}
+
+form{
+ 
+    text-align: center;
+}
+
+.form-row{
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 5rem;
+
+    
+
+}
+
+button{
+
+    background-color: rgb(6, 173, 6);
+    border: 2px solid rgba(0, 0, 0, 0.377);
+    padding: 0.6rem;
+    border-radius: 0.7rem;
+    color: white;
+
+
+}

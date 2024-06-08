@@ -1,0 +1,16 @@
+Criar formulario para requerimento de novos pontos de coleta inteligente (PCI).
+Quantidade de pontos
+Tipos de Material
+Volume e peso suportados
+
+Adicionar tipo de empresa no cadastro
+Empresa Privada( pontos de coleta unicos e exclusivos para empresas, clubes , faculdades e etc).
+Quantidade de pontos
+Tipos de Material
+Volume e peso suportados
+
+Empresa Publicas(Prefeituras e associados, Possibilitando adcionar localização no bairro ou cidade em que atuam).
+Quantidade de pontos
+Tipos de Material
+Volume e peso suportados
+Localização

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bar Chart</title>
+<!-- Adicione o link para a biblioteca ApexCharts -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+<body>
+
+<div id="chart"></div>
+
+<script>
+    // Definição de variáveis para o gráfico
+    var options = {
+        chart: {
+            type: 'bar',
+            height: 300
+        },
+        series: [{
+            name: 'Volume Total',
+            data: [0]
+        }, {
+            name: 'Peso Total',
+            data: [0]
+        }],
+        xaxis: {
+            categories: ['']
+        }
+    };
+
+    // Inicializa o gráfico com as opções
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+
+    // Função para gerar dados simulados e atualizar o gráfico
+    function gerarDadosSimulados() {
+        var limiteMaximoVolume = 80; // Substitua com o seu limite máximo de volume
+        var volumeTotal = 0;
+        var pesoTotal = 0;
+
+        setInterval(function() {
+            var volume = Math.round(Math.random() * 10) + 1;
+            var peso = Math.round(Math.random() * 2) + 1;
+
+            if ((volumeTotal + volume) <= limiteMaximoVolume) {
+                volumeTotal += volume;
+                pesoTotal += peso;
+                // Atualiza os dados das séries do gráfico com os novos valores de volume e peso
+                chart.updateSeries([{
+                    data: [volumeTotal]
+                }, {
+                    data: [pesoTotal]
+                }]);
+            } else {
+                console.log("Dados excedem os limites máximos. Não atualizando o gráfico.");
+            }
+        }, 5000); // Tempo em milissegundos (por exemplo, a cada 5 segundos)
+    }
+
+    // Inicia o processo de geração de dados e atualização do gráfico
+    gerarDadosSimulados();
+</script>
+
+</body>
+</html>

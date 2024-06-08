@@ -1,0 +1,359 @@
+[
+    {
+        "id": "07dac06b72663873",
+        "type": "tab",
+        "label": "SIMULAR LIXEIRA",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "91297f6a1542a343",
+        "type": "function",
+        "z": "07dac06b72663873",
+        "name": "lixeira1",
+        "func": "if (msg.topic === \"inject\") {\n    // Chama a função de consulta\n    gerarDadosSimulados();\n}\n\nvar idLixeira = \"49\";\n\nvar tipo = \"papel\";\nvar intervaloDeTempo = 5000; // Tempo em milissegundos (por exemplo, a cada 5 segundos)\nvar limiteMaximoVolume = 80; // Substitua com o seu limite máximo de volume\n\nvar volumeTotal = 0;\nvar pesoTotal = 0;\n\nfunction gerarDadosSimulados() {\n    var volume = Math.round(Math.random() * 10) + 1;\n    var peso = Math.round(Math.random() * 2) + 1;\n    var timestamp = new Date();\n\n    if ((volumeTotal + volume) <= limiteMaximoVolume) {\n        volumeTotal += volume;\n        pesoTotal += peso;\n\n        var dados = {\n            limiteMaximoVolume: limiteMaximoVolume,\n            idLixeira: idLixeira,\n            volumeTotal: volumeTotal,\n            pesoTotal: pesoTotal,\n            timestamp: timestamp,\n            isFinal: false\n        };\n\n        if (volumeTotal >= limiteMaximoVolume - 10) {\n            dados.isFinal = true;\n            console.log(\"Volume máximo atingido. Marcar como final.\");\n\n            // Se isFinal for verdadeiro, envie o sinal para o nó Trigger\n            if (dados.isFinal) {\n                node.send({ payload:dados });\n            }\n        }\n\n        node.send({ payload: dados, topic: \"lixeira\" });\n        console.log(dados);\n\n        if (!dados.isFinal) {\n            setTimeout(gerarDadosSimulados, intervaloDeTempo);\n        }\n    } else {\n        console.log(\"Dados excedem os limites máximos. Não enviando para o MQTT.\");\n    }\n}\n\n// Inicie o processo de geração de dados\ngerarDadosSimulados();\n\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 360,
+        "wires": [
+            [
+                "2430cdbd20a2960f",
+                "aead8d23c202d61e"
+            ]
+        ]
+    },
+    {
+        "id": "597b55e219cf4937",
+        "type": "function",
+        "z": "07dac06b72663873",
+        "name": "function 1",
+        "func": "// Supondo que você tenha os dados do MongoDB em msg.payload\nvar mongodbData = msg.payload.ops && msg.payload.ops[0];\n\n// Extrair os valores específicos que você deseja para o gráfico de barras\nvar volumeTotal = mongodbData && mongodbData.volumeTotal || 0;\nvar pesoTotal = mongodbData && mongodbData.pesoTotal || 0;\nvar  limiteMaximoVolume = mongodbData && mongodbData.limiteMaximoVolume || 0;\n// Criar um objeto para o gráfico de barras\nvar barChartData = {\n    labels: [\"Volume Atual(Lts)\", \"Peso Atual(Kgs)\",],\n    series: ['Volume e peso em tempo real'],\n    data: [\n        [volumeTotal, pesoTotal, limiteMaximoVolume]\n    ]\n};\n\n// Enviar os dados para o gráfico de barras\nmsg.payload = [barChartData];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 360,
+        "wires": [
+            [
+                "7fbd8a2e43839797"
+            ]
+        ]
+    },
+    {
+        "id": "bf1c6d73e2c0c09e",
+        "type": "inject",
+        "z": "07dac06b72663873",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "v": "inject",
+                "vt": "msg"
+            }
+        ],
+        "repeat": "66",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 140,
+        "y": 360,
+        "wires": [
+            [
+                "91297f6a1542a343"
+            ]
+        ]
+    },
+    {
+        "id": "07e0c513434f78d8",
+        "type": "function",
+        "z": "07dac06b72663873",
+        "name": "lixeira2",
+        "func": "if (msg.topic === \"inject\") {\n    // Chama a função de consulta\n    gerarDadosSimulados();\n}\n\nvar idLixeira = \"48\";\n\nvar tipo = \"papel\";\nvar intervaloDeTempo = 3000; // Tempo em milissegundos (por exemplo, a cada 5 segundos)\nvar limiteMaximoVolume = 80; // Substitua com o seu limite máximo de volume\n\nvar volumeTotal = 0;\nvar pesoTotal = 0;\n\nfunction gerarDadosSimulados() {\n    var volume = Math.round(Math.random() * 10) + 1;\n    var peso = Math.round(Math.random() * 2) + 1;\n    var timestamp = new Date();\n\n    if ((volumeTotal + volume) <= limiteMaximoVolume) {\n        volumeTotal += volume;\n        pesoTotal += peso;\n\n        var dados = {\n            idLixeira: idLixeira,\n         \n            volumeTotal: volumeTotal,\n            pesoTotal: pesoTotal,\n            timestamp: timestamp,\n            isFinal2: false\n        };\n\n        if (volumeTotal >= limiteMaximoVolume - 10) {\n            dados.isFinal2 = true;\n            console.log(\"Volume máximo atingido. Marcar como final.\");\n\n            // Se isFinal for verdadeiro, envie o sinal para o nó Trigger\n            if (dados.isFinal2) {\n                node.send({ payload:dados });\n            }\n        }\n\n        node.send({ payload: dados, topic: \"lixeira\" });\n        console.log(dados);\n\n        if (!dados.isFinal2) {\n            setTimeout(gerarDadosSimulados, intervaloDeTempo);\n        }\n    } else {\n        console.log(\"Dados excedem os limites máximos. Não enviando para o MQTT.\");\n    }\n}\n\n// Inicie o processo de geração de dados\ngerarDadosSimulados();\n\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 720,
+        "wires": [
+            [
+                "5d65a41811af3794",
+                "075d7e2563faf9e4"
+            ]
+        ]
+    },
+    {
+        "id": "602f136a502da152",
+        "type": "function",
+        "z": "07dac06b72663873",
+        "name": "function 3",
+        "func": "// Supondo que você tenha os dados do MongoDB em msg.payload\nvar mongodbData = msg.payload.ops && msg.payload.ops[0];\n\n// Extrair os valores específicos que você deseja para o gráfico de barras\nvar volumeTotal = mongodbData && mongodbData.volumeTotal || 0;\nvar pesoTotal = mongodbData && mongodbData.pesoTotal || 0;\n\n// Criar um objeto para o gráfico de barras\nvar barChartData = {\n    labels: [\"Volume Atual(Lts)\", \"Peso Atual(Kgs)\"],\n    series: ['Volume e Peso'],\n    data: [\n        [volumeTotal] // Incluir ambos os volumes e pesos\n    ]\n};\n\n// Enviar os dados para o gráfico de barras\nmsg.payload = barChartData;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "128b93a315d87730",
+        "type": "inject",
+        "z": "07dac06b72663873",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "v": "inject",
+                "vt": "msg"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 160,
+        "y": 720,
+        "wires": [
+            [
+                "07e0c513434f78d8"
+            ]
+        ]
+    },
+    {
+        "id": "c2d5b3daeef6a96a",
+        "type": "websocket out",
+        "z": "07dac06b72663873",
+        "name": "",
+        "server": "",
+        "client": "6e6a7700277995f4",
+        "x": 1020,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "7fbd8a2e43839797",
+        "type": "websocket out",
+        "z": "07dac06b72663873",
+        "name": "",
+        "server": "0ecc44656d71f6a5",
+        "client": "",
+        "x": 950,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "075d7e2563faf9e4",
+        "type": "function",
+        "z": "07dac06b72663873",
+        "name": "function 4",
+        "func": "// Verifica se o payload é um objeto e contém a propriedade 'isFinal2'\nif (msg.payload.isFinal2 === true) {\n    // Cria um novo objeto apenas com o 'idLixeira'\n    var idLixeira = { idLixeira: msg.payload.idLixeira };\n\n    // Chama o nó Trigger\n    node.send({ payload: idLixeira});\n} else {\n    // Se o payload não contiver 'isFinal2', retorna nulo\n    return null;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 840,
+        "wires": [
+            [
+                "6f66a8b6756d334f"
+            ]
+        ]
+    },
+    {
+        "id": "aead8d23c202d61e",
+        "type": "function",
+        "z": "07dac06b72663873",
+        "name": "function 5",
+        "func": "// Verifica se o payload é um objeto e contém a propriedade 'isFinal2'\nif (msg.payload && msg.payload.isFinal === true) {\n    // Cria um novo objeto apenas com o 'idLixeira'\n    var idLixeira = { idLixeira: msg.payload.idLixeira };\n\n    // Chama o nó Trigger\n    node.send({ payload: idLixeira, topic: \"trigger\" });\n} else {\n    // Se o payload não contiver 'isFinal2', retorna nulo\n    return null;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 480,
+        "wires": [
+            [
+                "ea26fbc09266e6a4"
+            ]
+        ]
+    },
+    {
+        "id": "6f66a8b6756d334f",
+        "type": "delay",
+        "z": "07dac06b72663873",
+        "name": "",
+        "pauseType": "queue",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": true,
+        "outputs": 1,
+        "x": 610,
+        "y": 840,
+        "wires": [
+            [
+                "1871e39dac2daa6e"
+            ]
+        ]
+    },
+    {
+        "id": "ea26fbc09266e6a4",
+        "type": "delay",
+        "z": "07dac06b72663873",
+        "name": "",
+        "pauseType": "queue",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": true,
+        "outputs": 1,
+        "x": 490,
+        "y": 480,
+        "wires": [
+            [
+                "1a9855acf778295d"
+            ]
+        ]
+    },
+    {
+        "id": "1a9855acf778295d",
+        "type": "delay",
+        "z": "07dac06b72663873",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "3",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 720,
+        "y": 480,
+        "wires": [
+            [
+                "7fbd8a2e43839797"
+            ]
+        ]
+    },
+    {
+        "id": "1871e39dac2daa6e",
+        "type": "delay",
+        "z": "07dac06b72663873",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "3",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 800,
+        "y": 840,
+        "wires": [
+            [
+                "c2d5b3daeef6a96a"
+            ]
+        ]
+    },
+    {
+        "id": "2430cdbd20a2960f",
+        "type": "mongodb3 in",
+        "z": "07dac06b72663873",
+        "service": "_ext_",
+        "configNode": "858e702760f399af",
+        "name": "MongoDb",
+        "collection": "lixeiras",
+        "operation": "insert",
+        "x": 500,
+        "y": 360,
+        "wires": [
+            [
+                "597b55e219cf4937"
+            ]
+        ]
+    },
+    {
+        "id": "5d65a41811af3794",
+        "type": "mongodb3 in",
+        "z": "07dac06b72663873",
+        "service": "_ext_",
+        "configNode": "858e702760f399af",
+        "name": "MongoDb",
+        "collection": "lixeiras",
+        "operation": "insert",
+        "x": 520,
+        "y": 720,
+        "wires": [
+            [
+                "602f136a502da152"
+            ]
+        ]
+    },
+    {
+        "id": "6e6a7700277995f4",
+        "type": "websocket-client",
+        "path": "/reciclame.serv00.net/ws",
+        "tls": "",
+        "wholemsg": "false",
+        "hb": "0",
+        "subprotocol": "wss"
+    },
+    {
+        "id": "0ecc44656d71f6a5",
+        "type": "websocket-listener",
+        "path": "reciclame.com/ws",
+        "wholemsg": "false"
+    },
+    {
+        "id": "858e702760f399af",
+        "type": "mongodb3",
+        "uri": "mongodb+srv://rafaelh:mongo123@cluster0.pkftyqr.mongodb.net/?retryWrites=true&w=majority",
+        "name": "reciclame",
+        "options": "",
+        "parallelism": "-1"
+    }
+]

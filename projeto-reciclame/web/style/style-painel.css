@@ -1,0 +1,182 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.h2 {
+    display: flex;
+    align-items: center;
+    height: max-content;
+    padding: 1rem 0em 0em 0em;
+    justify-content: center;
+}
+
+.h2>h2 {
+    color: white;
+    font-size: 1.3em;
+}
+
+td {
+    color: black;
+}
+
+.material-symbols-outlined {
+    color: white;
+}
+
+.button-not {
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    position: absolute;
+    right: 5%;
+    top: 40%;
+    transform: scale(1);
+}
+
+.button-status {
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    position: absolute;
+    right: 8%;
+    top: 40%;
+    color: white;
+    width: 200px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 0px 15px;
+    background-color: rgb(66, 66, 66);
+    border-radius: 10px;
+    color: white;
+    border: none;
+ 
+    cursor: pointer;
+    transition-duration: .2s;
+}
+
+.notification-count {
+    position: absolute;
+    top: -4px;
+    /* Ajuste conforme necessário */
+    right: -3px;
+    /* Ajuste conforme necessário */
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 16px;
+    font-size: 10px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes balancar {
+    0% {
+        transform: scale(1.1);
+    }
+    5%,
+    15% {
+        transform: rotate(16deg);
+    }
+    10%,
+    20% {
+        transform: rotate(-16deg);
+    }
+    25% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.balançando {
+    animation-name: balancar;
+    animation-duration: 4s;
+    /* Duracão aumentada para tornar a animação mais lenta */
+    animation-timing-function: ease-in-out;
+    /* Função de timing para suavizar a animação */
+    animation-iteration-count: infinite;
+}
+
+#sino {
+    color: hsl(91, 100%, 49%);
+    font-size: 2rem;
+    font-weight: bolder;
+}
+
+.button-not:focus {
+    outline-style: none;
+}
+
+.not-list {
+    position: absolute;
+    z-index: 1000;
+    width: 450px;
+    max-height: 800px;
+    background-color: rgb(21, 20, 26);
+    right: 5%;
+    margin-top: 5rem;
+    list-style: none;
+    border-radius: 1rem;
+    overflow: scroll;
+}
+
+.sta-list {
+    position: absolute;
+    z-index: 1000;
+    width: 250px;
+    max-height: max-content;
+    background-color: rgb(21, 20, 26);
+    right: 8.1%;
+    margin-top: 5rem;
+    list-style: none;
+    border-radius: 1rem;
+}
+
+.sta-list li {
+    color: white;
+    padding: 1rem;
+    border-top: 1px solid rgba(128, 128, 128, 0.401);
+}
+
+.not-list ul {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.not-list li {
+    color: white;
+    border-top: 3px solid white;
+    padding: 1rem;
+}
+
+iframe {
+
+    
+
+
+    top: 7.9rem;
+    width: 78.8%;
+    margin-left: 400px;
+    height: 87.5vh;
+ 
+    border: none;
+    background-color: rgba(0, 255, 255, 0);
+    overflow: hidden;
+    position: absolute;
+    z-index: 0;
+}
+
+iframe#frameEspecificacoes::-webkit-scrollbar {
+    display: none;
+}

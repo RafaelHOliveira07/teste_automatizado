@@ -1,0 +1,68 @@
+body{
+    
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask3917%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='url(%26quot%3b%23SvgjsRadialGradient3918%26quot%3b)'%3e%3c/rect%3e%3cpath d='M-66.69 261.66 a132.43 132.43 0 1 0 264.86 0 a132.43 132.43 0 1 0 -264.86 0z' fill='rgba(13%2c 102%2c 11%2c 0.58)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M777.05 239.37 a155.19 155.19 0 1 0 310.38 0 a155.19 155.19 0 1 0 -310.38 0z' fill='rgba(13%2c 102%2c 11%2c 0.58)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M213.672%2c477.898C230.847%2c476.735%2c242.387%2c462.26%2c250.883%2c447.289C259.232%2c432.576%2c265.149%2c415.58%2c257.638%2c400.422C249.35%2c383.696%2c232.325%2c371.465%2c213.672%2c372.189C195.949%2c372.876%2c184.174%2c388.295%2c175.243%2c403.618C166.224%2c419.093%2c158.345%2c437.089%2c166.575%2c452.997C175.321%2c469.902%2c194.682%2c479.184%2c213.672%2c477.898' fill='rgba(13%2c 102%2c 11%2c 0.58)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M1374.496%2c613.45C1421.843%2c616.595%2c1468.602%2c589.541%2c1489.447%2c546.914C1508.458%2c508.037%2c1488.182%2c464.842%2c1465.053%2c428.265C1443.974%2c394.931%2c1413.843%2c367.827%2c1374.496%2c365.132C1329.954%2c362.081%2c1280.858%2c374.95%2c1259.561%2c414.189C1238.877%2c452.298%2c1261.601%2c495.659%2c1283.266%2c533.219C1304.953%2c570.817%2c1331.187%2c610.573%2c1374.496%2c613.45' fill='rgba(13%2c 102%2c 11%2c 0.58)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M856.95 116.13 a137.9 137.9 0 1 0 275.8 0 a137.9 137.9 0 1 0 -275.8 0z' fill='rgba(13%2c 102%2c 11%2c 0.58)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M1120.52 456.43 a162.48 162.48 0 1 0 324.96 0 a162.48 162.48 0 1 0 -324.96 0z' fill='rgba(13%2c 102%2c 11%2c 0.58)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M434.23 86.7 a155.19 155.19 0 1 0 310.38 0 a155.19 155.19 0 1 0 -310.38 0z' fill='rgba(13%2c 102%2c 11%2c 0.58)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M258.15 12.7 a160.28 160.28 0 1 0 320.56 0 a160.28 160.28 0 1 0 -320.56 0z' fill='rgba(13%2c 102%2c 11%2c 0.58)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M-35.195%2c18.446C-21.16%2c18.366%2c-8.602%2c11.419%2c-0.554%2c-0.079C9.142%2c-13.932%2c17.843%2c-31.195%2c10.055%2c-46.204C1.871%2c-61.975%2c-17.438%2c-67.473%2c-35.195%2c-66.838C-51.782%2c-66.245%2c-67.438%2c-57.846%2c-75.166%2c-43.157C-82.438%2c-29.333%2c-79.025%2c-12.786%2c-70.523%2c0.317C-62.801%2c12.217%2c-49.381%2c18.526%2c-35.195%2c18.446' fill='rgba(13%2c 102%2c 11%2c 0.58)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M568.415%2c489.493C614.379%2c491.79%2c663.759%2c483.315%2c689.318%2c445.044C717.401%2c402.992%2c719.53%2c346.342%2c692.597%2c303.544C667.079%2c262.995%2c616.305%2c251.542%2c568.415%2c252.926C523.353%2c254.228%2c478.141%2c271.07%2c456.068%2c310.377C434.375%2c349.007%2c443.233%2c396.391%2c466.774%2c433.923C488.765%2c468.983%2c527.081%2c487.427%2c568.415%2c489.493' fill='rgba(13%2c 102%2c 11%2c 0.58)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M351.79%2c147.445C368.586%2c146.099%2c379.564%2c131.164%2c386.966%2c116.027C393.346%2c102.978%2c393.743%2c88.253%2c387.032%2c75.371C379.717%2c61.33%2c367.607%2c49.195%2c351.79%2c48.506C334.917%2c47.771%2c319.782%2c57.751%2c310.8%2c72.053C301.143%2c87.43%2c296.598%2c106.623%2c305.271%2c122.576C314.272%2c139.132%2c333.005%2c148.951%2c351.79%2c147.445' fill='rgba(13%2c 102%2c 11%2c 0.58)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M1440.534%2c416.515C1494.375%2c415.695%2c1542.775%2c382.845%2c1567.227%2c334.87C1589.696%2c290.787%2c1579.677%2c238.414%2c1552.327%2c197.181C1527.868%2c160.307%2c1484.754%2c145.446%2c1440.534%2c143.87C1392.618%2c142.163%2c1341.133%2c149.136%2c1314.037%2c188.691C1283.689%2c232.992%2c1280.914%2c291.884%2c1306.981%2c338.832C1333.776%2c387.091%2c1385.341%2c417.355%2c1440.534%2c416.515' fill='rgba(13%2c 102%2c 11%2c 0.58)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M197.537%2c341.764C222.915%2c342.556%2c251.632%2c339.214%2c264.21%2c317.158C276.719%2c295.223%2c265.63%2c268.402%2c251.185%2c247.691C238.989%2c230.205%2c218.839%2c222.402%2c197.537%2c221.561C174.261%2c220.642%2c148.744%2c223.637%2c136.01%2c243.142C122.322%2c264.109%2c124.452%2c291.963%2c137.706%2c313.208C150.243%2c333.304%2c173.863%2c341.025%2c197.537%2c341.764' fill='rgba(13%2c 102%2c 11%2c 0.58)' class='triangle-float1'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask3917'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3cradialGradient cx='50%25' cy='100%25' r='912.14' gradientUnits='userSpaceOnUse' id='SvgjsRadialGradient3918'%3e%3cstop stop-color='rgba(16%2c 98%2c 0%2c 1)' offset='0'%3e%3c/stop%3e%3cstop stop-color='rgba(0%2c 0%2c 0%2c 1)' offset='1'%3e%3c/stop%3e%3c/radialGradient%3e%3cstyle%3e %40keyframes float1 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-10px%2c 0)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float1 %7b animation: float1 5s infinite%3b %7d %40keyframes float2 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-5px%2c -5px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float2 %7b animation: float2 4s infinite%3b %7d %40keyframes float3 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(0%2c -10px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float3 %7b animation: float3 6s infinite%3b %7d %3c/style%3e%3c/defs%3e%3c/svg%3e");
+    background-size: cover;
+    color: #fff;
+
+
+}
+h1{
+    color: #fff !;  
+}
+form>img{
+    width: 60%;
+    height: 3rem;
+    object-fit: cover;
+    
+    overflow: hidden;
+}
+
+
+h1{
+    color: #fff;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.3rem;
+    justify-content: center;
+    background-color: rgb(59, 129, 19);
+    border-radius: 25px;
+    padding: 1.5rem !important;
+    
+   
+}
+
+input{
+    border-radius: 1rem !important;
+    
+}
+
+input::placeholder{
+    color: rgb(117, 196, 0)!important;
+    font-size: small;
+}
+
+button{
+background-color: rgb(5, 67, 5);
+    background-size: cover;
+    background-position: bottom;
+    color: #fff;
+   
+}
+
+button:hover{
+    background-color: rgb(17, 234, 17);
+}
+
+span,span>a{
+    color: #fff;
+    font-size: smaller;
+}
+
+span>a:hover{
+    color: greenyellow;
+    
+}

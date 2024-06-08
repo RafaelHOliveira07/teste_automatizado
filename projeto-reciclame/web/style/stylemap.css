@@ -1,0 +1,222 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
+#map-container {
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+  display: flex;
+
+ 
+}
+
+#map-container a {
+  text-decoration: none;
+  color: #1967d2;
+}
+
+#map-container button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+#gmp-map {
+ max-width: 100%;
+ width: 40rem;
+ height: 100%;
+
+}
+
+#locations-panel {
+  
+ 
+  height: 100%;
+  overflow-y: auto;
+  background: white;
+  padding: 0.5em;
+  box-sizing: border-box;
+  
+}
+
+@media only screen and (max-width: 876px) {
+
+  #map-container{
+    display: flex;
+    flex-direction: column;
+  }
+
+
+}
+
+#locations-panel-list > .headermap {
+  padding: 1.4em 1.4em 0 1.4em;
+}
+
+#locations-panel-list h1.search-title {
+  font-size: 1em;
+  font-weight: 500;
+  margin: 0;
+  color: #212121;
+}
+
+#locations-panel-list h1.search-title > img {
+  vertical-align: bottom;
+  margin-top: -1em;
+}
+
+#locations-panel-list .search-input {
+  width: 100%;
+  margin-top: 0.8em;
+  position: relative;
+}
+
+#locations-panel-list .search-input input {
+  width: 100%;
+  border: 1px solid #80868b;
+  border-radius: 0.3em;
+  height: 2.7em;
+  box-sizing: border-box;
+  padding: 0 1em 0 2.5em;
+  font-size: 0.9em;
+  
+}
+
+#locations-panel-list .search-input input:focus {
+  outline: 2px solid #1c8a09;
+  color: #212121;
+}
+
+#locations-panel-list .search-input input::placeholder {
+  color: #212121;
+  opacity: 0.5;
+}
+
+#locations-panel-list .search-input-overlay {
+  position: absolute;
+}
+
+#locations-panel-list .search-input-overlay.search {
+  left: 2px;
+  top: 2px;
+  bottom: 2px;
+  width: 2.4em;
+}
+
+#locations-panel-list .search-input-overlay.search button {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.2em;
+  color: black;
+  background: transparent;
+}
+
+#locations-panel-list .search-input-overlay.search .icon {
+  margin-top: 0.15em;
+  vertical-align: top;
+  width: 0.9em;
+}
+
+#locations-panel-list .section-name {
+  font-weight: 500;
+  font-size: 0.9em;
+  margin: 1.8em 0 1em 1.5em;
+  color: #212121;
+}
+
+#locations-panel-list .location-result {
+  position: relative;
+  padding: 0.8em 3.5em 0.8em 1.4em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+
+#locations-panel-list .location-result:first-of-type {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+#locations-panel-list .location-result:last-of-type {
+  border-bottom: none;
+}
+
+#locations-panel-list .location-result.selected {
+  outline: 2px solid #4285f4;
+}
+
+#locations-panel-list button.select-location {
+  margin-bottom: 0.6em;
+  text-align: left;
+}
+
+#locations-panel-list .location-result h2.name {
+  font-size: 1em;
+  font-weight: 500;
+  margin: 0;
+}
+
+#locations-panel-list .location-result .address {
+  font-size: 0.9em;
+  margin-bottom: 0.5em;
+  color: #212121;
+}
+
+#locations-panel-list .directions-button {
+  position: absolute;
+  right: 1.2em;
+  top: 2.3em;
+}
+
+#locations-panel-list .directions-button-background:hover {
+  fill: rgba(116,120,127,0.1);
+}
+
+#locations-panel-list .directions-button-background {
+  fill: rgba(255,255,255,0.01);
+}
+
+#locations-panel-list .location-result .distance {
+  position: absolute;
+  top: 0.9em;
+  right: 0;
+  text-align: center;
+  font-size: 0.9em;
+  width: 5em;
+}
+
+#location-results-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  
+}
+
+#location-results-list ul,li {
+color: #212121;
+  
+}
+.custom-map-control-button {
+  background-color: #fff;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  padding: 0 0.5em;
+  font: 400 18px Roboto, Arial, sans-serif;
+ 
+  height: 40px;
+  cursor: pointer;
+}
+.custom-map-control-button:hover {
+  background: rgb(235, 235, 235);
+}

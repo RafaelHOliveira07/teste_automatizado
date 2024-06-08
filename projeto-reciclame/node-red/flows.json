@@ -1,0 +1,219 @@
+[
+    {
+        "id": "613ee8c9faeabed7",
+        "type": "tab",
+        "label": "Fluxo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a21be5de71797c86",
+        "type": "function",
+        "z": "613ee8c9faeabed7",
+        "name": "lixeira1",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "var idLixeira = \"01\";\nvar idEmpresa = \"02\";\nvar intervaloDeTempo = 2000; // Tempo em milissegundos (por exemplo, a cada 5 segundos)\nvar limiteMaximoVolume = 200; // Substitua com o seu limite máximo de volume\n\n// Variáveis para acumular o volume e o peso\nvar volumeTotal = 0;\nvar pesoTotal = 0;\n\n// Função para gerar dados simulados\nfunction gerarDadosSimulados() {\n    // Gere dados de volume e peso aleatórios (substitua com a lógica real)\n    var volume = Math.random() * 10 + 1; // Valor entre 1 e 10\n    var peso = Math.random() * 2 + 1; // Valor entre 1 e 5\n\n    // Adicione um timestamp simulado (data e hora atual)\n    var timestamp = new Date();\n\n    // Verifique se os dados excedem os limites máximos\n    if ((volumeTotal + volume) <= limiteMaximoVolume) {\n        // Some o volume e o peso aos totais\n        volumeTotal += volume;\n        pesoTotal += peso;\n\n        // Crie o objeto de dados\n        var dados = {\n            idLixeira: idLixeira,\n            idEmpresa: idEmpresa,\n            volumeTotal: volumeTotal, // Volume acumulado até agora\n            pesoTotal: pesoTotal, // Peso acumulado até agora\n            timestamp: timestamp, // Adiciona um timestamp simulado\n            isFinal: false // Indica se estes são os últimos dados\n        };\n\n        // Se ambos os limites foram atingidos, marque como final\n        if (volumeTotal >= limiteMaximoVolume) {\n            dados.isFinal = true;\n            console.log(\"Volume máximo atingido. Marcar como final.\");\n        }\n\n        // Envie os dados para o tópico MQTT\n        node.send({ payload: dados, topic: \"lixeira\" });\n        console.log(dados);\n\n        // Se não for o último conjunto de dados, agende a próxima geração\n        if (!dados.isFinal) {\n            setTimeout(gerarDadosSimulados, intervaloDeTempo);\n        }\n    } else {\n        console.log(\"Dados excedem os limites máximos. Não enviando para o MQTT.\");\n    }\n}\n\n// Inicie o processo de geração de dados\ngerarDadosSimulados();\n\nreturn null; // Não envie nada para a saída, pois a execução é controlada internamente\n//O código adicionado aqui será executado uma vez\n// sempre que o nó for iniciado.\n",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 360,
+        "wires": [
+            [
+                "2ba223e24d8fe228"
+            ]
+        ]
+    },
+    {
+        "id": "2ba223e24d8fe228",
+        "type": "mongodb3 in",
+        "z": "613ee8c9faeabed7",
+        "service": "_ext_",
+        "configNode": "858e702760f399af",
+        "name": "MongoDb",
+        "collection": "lixeiras",
+        "operation": "insert",
+        "x": 500,
+        "y": 360,
+        "wires": [
+            [
+                "1d60af2943c914ed"
+            ]
+        ]
+    },
+    {
+        "id": "1d60af2943c914ed",
+        "type": "function",
+        "z": "613ee8c9faeabed7",
+        "name": "function 1",
+        "func": "// Supondo que você tenha os dados do MongoDB em msg.payload\nvar mongodbData = msg.payload.ops && msg.payload.ops[0];\n\n// Extrair os valores específicos que você deseja para o gráfico de barras\nvar volumeTotal = mongodbData && mongodbData.volumeTotal || 0;\nvar pesoTotal = mongodbData && mongodbData.pesoTotal || 0;\n\n// Criar um objeto para o gráfico de barras\nvar barChartData = {\n    labels: [\"Volume Total\", \"Peso Total\"],\n    series: ['Series A'],\n    data: [\n        [volumeTotal, pesoTotal]\n    ]\n};\n\n// Enviar os dados para o gráfico de barras\nmsg.payload = [barChartData];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 360,
+        "wires": [
+            [
+                "94b39cc177a97630"
+            ]
+        ]
+    },
+    {
+        "id": "94b39cc177a97630",
+        "type": "ui_chart",
+        "z": "613ee8c9faeabed7",
+        "name": "",
+        "group": "6ebb2b92e29e7176",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "bar",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 910,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7894bba8239b7184",
+        "type": "function",
+        "z": "613ee8c9faeabed7",
+        "name": "function 2",
+        "func": "// Supondo que você tenha os dados do MongoDB em msg.payload.ops\n\n// Se a estrutura real dos seus dados for diferente, ajuste esta linha de acordo\nvar mongodbData = msg.payload.ops;\n\n// Inicializar variável para os dados do gráfico de barras\nvar barChartData = {\n    labels: [\"Volume Total\", \"Peso Total\"],\n    series: ['Series A'],\n    data: [[0, 0]]\n};\n\n// Iterar sobre os documentos e somar apenas os finais\nif (Array.isArray(mongodbData)) {\n    mongodbData.forEach(function (doc) {\n        // Verificar se o documento é um total final\n        if (doc.isFinalTotal) {\n            // Somar diretamente aos valores do gráfico de barras\n            barChartData.data[0][0] += doc.volumeTotal || 0;\n            barChartData.data[0][1] += doc.pesoTotal || 0;\n        }\n    });\n}\n\n// Enviar os dados para o gráfico de barras\nreturn { payload: [barChartData], topic: msg.topic };\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 480,
+        "wires": [
+            [
+                "230416a1962e2b2f"
+            ]
+        ]
+    },
+    {
+        "id": "230416a1962e2b2f",
+        "type": "ui_chart",
+        "z": "613ee8c9faeabed7",
+        "name": "",
+        "group": "6ebb2b92e29e7176",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "horizontalBar",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 930,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3577d57ece73dedc",
+        "type": "mongodb3 in",
+        "z": "613ee8c9faeabed7",
+        "service": "_ext_",
+        "configNode": "858e702760f399af",
+        "name": "",
+        "collection": "lixeiras",
+        "operation": "find.forEach",
+        "x": 470,
+        "y": 480,
+        "wires": [
+            [
+                "7894bba8239b7184"
+            ]
+        ]
+    },
+    {
+        "id": "858e702760f399af",
+        "type": "mongodb3",
+        "uri": "mongodb+srv://rafaelh:mongodb123@cluster0.bsuivhm.mongodb.net/?retryWrites=true&w=majority",
+        "name": "reciclame",
+        "options": "",
+        "parallelism": "-1"
+    },
+    {
+        "id": "6ebb2b92e29e7176",
+        "type": "ui_group",
+        "name": "graficos",
+        "tab": "01ba2456bca4704a",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "01ba2456bca4704a",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

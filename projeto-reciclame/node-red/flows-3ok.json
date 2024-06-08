@@ -1,0 +1,481 @@
+[
+    {
+        "id": "07dac06b72663873",
+        "type": "tab",
+        "label": "SIMULAR LIXEIRA",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "50cd7bd7627ea43f",
+        "type": "tab",
+        "label": "TOTAL BANCO",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "858e702760f399af",
+        "type": "mongodb3",
+        "uri": "mongodb+srv://rafaelh:mongodb123@cluster0.bsuivhm.mongodb.net/?retryWrites=true&w=majority",
+        "name": "reciclame",
+        "options": "",
+        "parallelism": "-1"
+    },
+    {
+        "id": "01ba2456bca4704a",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "",
+        "disabled": false,
+        "hidden": false,
+        "info": "<link rel=\"icon\" href=\"\" />"
+    },
+    {
+        "id": "8dad2fb4ed1935bc",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-custom",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#287e10",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#47b70b",
+                "baseFont": "Impact,Impact,Charcoal,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#3f7d1c",
+                "baseFont": "Tahoma,Geneva,sans-serif",
+                "reset": false
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#3f7d1c",
+                    "value": "#3f7d1c",
+                    "edited": true
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#3f7d1c",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#5ebb2a",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#3f7d1c",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "Tahoma,Geneva,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Reciclame-dash",
+            "hideToolbar": "true",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 70,
+                "sy": 70,
+                "gx": 1,
+                "gy": 0,
+                "cx": 55,
+                "cy": 10,
+                "px": 10,
+                "py": 10
+            }
+        }
+    },
+    {
+        "id": "6ebb2b92e29e7176",
+        "type": "ui_group",
+        "name": "",
+        "tab": "01ba2456bca4704a",
+        "order": 1,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "3210c0a37c3237ab",
+        "type": "ui_group",
+        "name": "",
+        "tab": "01ba2456bca4704a",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f3d3f6a10e0494fa",
+        "type": "websocket-client",
+        "path": "reciclame.com/ws",
+        "tls": "",
+        "wholemsg": "false",
+        "hb": "0",
+        "subprotocol": ""
+    },
+    {
+        "id": "91297f6a1542a343",
+        "type": "function",
+        "z": "07dac06b72663873",
+        "name": "lixeira1",
+        "func": "\n// Verifica se a mensagem é originária do nó \"inject\"\nif (msg.topic === \"inject\") {\n    // Chama a função de consulta\n    gerarDadosSimulados();\n}\n\n\n\n\n\n\n\nvar idLixeira = \"01\";\nvar idEmpresa = \"02\";\nvar intervaloDeTempo = 2000; // Tempo em milissegundos (por exemplo, a cada 5 segundos)\nvar limiteMaximoVolume = 90; // Substitua com o seu limite máximo de volume\n\n// Variáveis para acumular o volume e o peso\nvar volumeTotal = 0;\nvar pesoTotal = 0;\n\n// Função para gerar dados simulados\nfunction gerarDadosSimulados() {\n    // Gere dados de volume e peso aleatórios (substitua com a lógica real)\n    var volume = Math.round(Math.random() * 10) + 1; // Valor entre 1 e 10 (arredondado para o inteiro mais próximo)\n    var peso = Math.round(Math.random() * 2) + 1; // Valor entre 1 e 2 (arredondado para o inteiro mais próximo)\n\n    // Adicione um timestamp simulado (data e hora atual)\n    var timestamp = new Date();\n\n    // Verifique se os dados excedem os limites máximos\n    if ((volumeTotal + volume) <= limiteMaximoVolume) {\n        // Some o volume e o peso aos totais\n        volumeTotal += volume;\n        pesoTotal += peso;\n\n        // Crie o objeto de dados\n        var dados = {\n            idLixeira: idLixeira,\n            idEmpresa: idEmpresa,\n            volumeTotal: volumeTotal, // Volume acumulado até agora\n            pesoTotal: pesoTotal, // Peso acumulado até agora\n            timestamp: timestamp, // Adiciona um timestamp simulado\n            isFinal: false // Indica se estes são os últimos dados\n        };\n\n        // Se ambos os limites foram atingidos, marque como final\n        if (volumeTotal >= limiteMaximoVolume - 10) {\n            dados.isFinal = true;\n            console.log(\"Volume máximo atingido. Marcar como final.\");\n        }\n\n        // Envie os dados para o tópico MQTT\n        node.send({ payload: dados, topic: \"lixeira\" });\n        console.log(dados);\n\n        // Se não for o último conjunto de dados, agende a próxima geração\n        if (!dados.isFinal) {\n            setTimeout(gerarDadosSimulados, intervaloDeTempo);\n        }\n    } else {\n        console.log(\"Dados excedem os limites máximos. Não enviando para o MQTT.\");\n    }\n}\n\n// Inicie o processo de geração de dados\ngerarDadosSimulados();\n\nreturn null; // Não envie nada para a saída, pois a execução é controlada internamente\n//O código adicionado aqui será executado uma vez\n// sempre que o nó for iniciado.\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 360,
+        "wires": [
+            [
+                "2430cdbd20a2960f"
+            ]
+        ]
+    },
+    {
+        "id": "2430cdbd20a2960f",
+        "type": "mongodb3 in",
+        "z": "07dac06b72663873",
+        "service": "_ext_",
+        "configNode": "858e702760f399af",
+        "name": "MongoDb",
+        "collection": "lixeiras",
+        "operation": "insert",
+        "x": 500,
+        "y": 360,
+        "wires": [
+            [
+                "597b55e219cf4937"
+            ]
+        ]
+    },
+    {
+        "id": "597b55e219cf4937",
+        "type": "function",
+        "z": "07dac06b72663873",
+        "name": "function 1",
+        "func": "// Supondo que você tenha os dados do MongoDB em msg.payload\nvar mongodbData = msg.payload.ops && msg.payload.ops[0];\n\n// Extrair os valores específicos que você deseja para o gráfico de barras\nvar volumeTotal = mongodbData && mongodbData.volumeTotal || 0;\nvar pesoTotal = mongodbData && mongodbData.pesoTotal || 0;\n\n// Criar um objeto para o gráfico de barras\nvar barChartData = {\n    labels: [\"Volume Atual(Lts)\", \"Peso Atual(Kgs)\",],\n    series: ['Volume e peso em tempo real'],\n    data: [\n        [volumeTotal, pesoTotal]\n    ]\n};\n\n// Enviar os dados para o gráfico de barras\nmsg.payload = [barChartData];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 360,
+        "wires": [
+            [
+                "b1e6a4a6788aaf9c"
+            ]
+        ]
+    },
+    {
+        "id": "bf1c6d73e2c0c09e",
+        "type": "inject",
+        "z": "07dac06b72663873",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "v": "inject",
+                "vt": "msg"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 140,
+        "y": 360,
+        "wires": [
+            [
+                "91297f6a1542a343"
+            ]
+        ]
+    },
+    {
+        "id": "d288eea6e1a0b7db",
+        "type": "websocket in",
+        "z": "07dac06b72663873",
+        "name": "",
+        "server": "",
+        "client": "f3d3f6a10e0494fa",
+        "x": 680,
+        "y": 480,
+        "wires": [
+            [
+                "b1e6a4a6788aaf9c"
+            ]
+        ]
+    },
+    {
+        "id": "b1e6a4a6788aaf9c",
+        "type": "ui_chart",
+        "z": "07dac06b72663873",
+        "name": "Lixeira(01)",
+        "group": "3210c0a37c3237ab",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "Lixeira(01)",
+        "chartType": "bar",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#11ee11",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 930,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c60e80325fb0d9ef",
+        "type": "function",
+        "z": "50cd7bd7627ea43f",
+        "name": " PESO FINAL",
+        "func": "// Verifique se há resultados\nif (msg.payload) {\n    // Inicialize o peso total\n    var pesoTotalFinal = 0;\n\n    // Itere sobre os documentos\n    for (var key in msg.payload) {\n        var doc = msg.payload[key];\n\n        // Verifique se o documento tem a propriedade isFinal e seu valor é true\n        if (doc.isFinal === true) {\n            // Adicione o peso total do documento ao peso total acumulado\n            pesoTotalFinal += doc.pesoTotal || 0;\n        }\n    }\n\n    // Envie o peso total final diretamente como payload\n    msg.payload = pesoTotalFinal;\n\n    // Defina o tipo de gráfico no msg.ui_control para 'donut'\n    msg.ui_control = {\n        options: {\n            chart: {\n                type: 'donut'\n            }\n        }\n    };\n\n    return msg;\n} else {\n    // Não há resultados, você pode querer lidar com isso de alguma forma\n    return null;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 380,
+        "wires": [
+            [
+                "4423d421e1790643"
+            ]
+        ]
+    },
+    {
+        "id": "2a54a2b7633e77a3",
+        "type": "mongodb3 in",
+        "z": "50cd7bd7627ea43f",
+        "service": "_ext_",
+        "configNode": "858e702760f399af",
+        "name": "for each",
+        "collection": "lixeiras",
+        "operation": "find.toArray",
+        "x": 540,
+        "y": 380,
+        "wires": [
+            [
+                "c60e80325fb0d9ef",
+                "a6731cd6506c89e6"
+            ]
+        ]
+    },
+    {
+        "id": "6e7090cceb546277",
+        "type": "function",
+        "z": "50cd7bd7627ea43f",
+        "name": "CONSULTA BANCO",
+        "func": "// Verifica se a mensagem é originária do nó \"inject\"\nif (msg.topic === \"inject\") {\n    // Chama a função de consulta\n    documentos();\n}\n\n// Retorna a mensagem para passar para o próximo nó\nreturn msg;\n\n\nvar processedDocs = [];\n\n// Verifique se a resposta do banco de dados contém a propriedade \"ops\"\nif (msg.payload && msg.payload.ops) {\n    // Extraia os documentos da propriedade \"ops\"\n    var documentos = msg.payload.ops;\n\n    // Itera sobre cada documento\n    documentos.forEach(function(doc) {\n        // Faça qualquer processamento adicional aqui, se necessário\n        // ...\n\n        // Adiciona o documento ao array\n        processedDocs.push(doc);\n    });\n\n    // Imprima os documentos para verificar\n    console.log(processedDocs);\n\n    // Agora, você pode usar o array de documentos como desejar\n    // Por exemplo, atribuir a uma variável global ou enviar para outro nó\n\n    return { payload: processedDocs };\n} else {\n    // Caso não encontre a propriedade \"ops\", algo pode ter dado errado\n    console.error(\"A propriedade 'ops' não encontrada na resposta do banco de dados.\");\n    return msg; // Ou retorne algo apropriado para o seu caso\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 380,
+        "wires": [
+            [
+                "2a54a2b7633e77a3"
+            ]
+        ]
+    },
+    {
+        "id": "3d7855819d377584",
+        "type": "inject",
+        "z": "50cd7bd7627ea43f",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "v": "inject",
+                "vt": "msg"
+            }
+        ],
+        "repeat": "20",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 160,
+        "y": 380,
+        "wires": [
+            [
+                "6e7090cceb546277"
+            ]
+        ]
+    },
+    {
+        "id": "4423d421e1790643",
+        "type": "ui_gauge",
+        "z": "50cd7bd7627ea43f",
+        "name": "Peso total - lixeira 1",
+        "group": "6ebb2b92e29e7176",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "donut",
+        "title": "Peso total",
+        "label": "KG",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "2000",
+        "colors": [
+            "#09e109",
+            "#e2e23c",
+            "#ff0000"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 950,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "a6731cd6506c89e6",
+        "type": "function",
+        "z": "50cd7bd7627ea43f",
+        "name": "VOLUME FINAL",
+        "func": "// Verifique se há resultados\nif (msg.payload) {\n    // Inicialize o peso total\n    var volumeTotalFinal = 0;\n\n    // Itere sobre os documentos\n    for (var key in msg.payload) {\n        var doc = msg.payload[key];\n\n        // Verifique se o documento tem a propriedade isFinal e seu valor é true\n        if (doc.isFinal === true) {\n            // Adicione o peso total do documento ao peso total acumulado\n            volumeTotalFinal += doc.volumeTotal || 0;\n        }\n    }\n\n    // Envie o peso total final diretamente como payload\n    msg.payload = volumeTotalFinal;\n\n    // Defina o tipo de gráfico no msg.ui_control para 'donut'\n    msg.ui_control = {\n        options: {\n            chart: {\n                type: 'donut'\n            }\n        }\n    };\n\n    return msg;\n} else {\n    // Não há resultados, você pode querer lidar com isso de alguma forma\n    return null;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 460,
+        "wires": [
+            [
+                "90f86e9ec214eaa8"
+            ]
+        ]
+    },
+    {
+        "id": "90f86e9ec214eaa8",
+        "type": "ui_gauge",
+        "z": "50cd7bd7627ea43f",
+        "name": "Volume - lixeira(1)",
+        "group": "6ebb2b92e29e7176",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "wave",
+        "title": "Volume ",
+        "label": "litros",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "5000",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 990,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "4aee7b8ed96e54a8",
+        "type": "websocket in",
+        "z": "50cd7bd7627ea43f",
+        "name": "",
+        "server": "",
+        "client": "f3d3f6a10e0494fa",
+        "x": 820,
+        "y": 600,
+        "wires": [
+            [
+                "90f86e9ec214eaa8",
+                "4423d421e1790643"
+            ]
+        ]
+    }
+]
